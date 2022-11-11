@@ -6,7 +6,7 @@ import warnings
 
 import keras
 import numpy as np
-from preprocessing import read_data, preprocess_data, encode_strains
+from preprocessing import read_data, preprocess_data
 warnings.simplefilter('ignore')
 
 logging.basicConfig(
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 BASE_DIR = pathlib.Path(__file__).parent
-PATH_TO_INPUT = BASE_DIR / 'input/'
+PATH_TO_INPUT = '../input/'
 PATH_TO_MODELS = BASE_DIR / 'models/'
 PATH_TO_OUTPUT = BASE_DIR / 'output/'
 
