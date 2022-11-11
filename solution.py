@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     class_name = []
     for p in prediction:
-        if max(p) > 0.0:
+        if max(p) > 1.0:
             class_name.append(decoder[p.argmax()])
         else:
             class_name.append('new')

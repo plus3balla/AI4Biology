@@ -3,6 +3,7 @@ import pandas as pd
 import json
 from sklearn.preprocessing import LabelEncoder
 
+
 def read_data(f):
     with open(f, 'rb') as fp:
         test_d = json.load(fp)
