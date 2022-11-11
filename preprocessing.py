@@ -10,7 +10,7 @@ def read_data(f):
     return test_df
 
 
-def create_speactr(mz, intens):
+def create_spectre(mz, intens):
     spec = []
     for i in range(200, 1750):
         if i in mz:
@@ -20,9 +20,8 @@ def create_speactr(mz, intens):
     return spec
 
 
-def prepocess_data(data):
+def preprocess_data(data):
     data['mz'] = data['m/z'].apply(lambda x: [int(x_i // 10) for x_i in x])
-    data['intens'] = data.apply(lambda d: create_speactr(d['mz'],
-                                                         d['Rel. Intens.']),
+    data['intens'] = data.apply(lambda d: create_spectre(d['mz'], d['Rel. Intens.']),
                                 axis=1)
     return data

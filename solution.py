@@ -9,7 +9,7 @@ import warnings
 import numpy as np
 import pandas as pd
 from glob import glob
-from preprocessing import read_data, prepocess_data
+from preprocessing import read_data, preprocess_data
 warnings.simplefilter('ignore')
 
 logging.basicConfig(
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 BASE_DIR = pathlib.Path(__file__).parent
-PATH_TO_INPUT = '../input/'
+PATH_TO_INPUT = BASE_DIR / 'input/'
 PATH_TO_MODELS = BASE_DIR / 'models/'
 PATH_TO_OUTPUT = BASE_DIR / 'output/'
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     logger.info('Загрузка тестового датасета')
     test_df = read_data(os.path.join(PATH_TO_INPUT, 'test.json'))
     logger.info('Предобработка датасета')
-    test_df = prepocess_data(test_df)
+    test_df = preprocess_data(test_df)
     logger.info(f'N примеров: {test_df.shape[0]}')
 
     X_pred = []
