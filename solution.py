@@ -1,15 +1,12 @@
 import os
-import json
-import pickle
-import random
 import logging
 import pathlib
+import pickle
 import warnings
 
+import keras
 import numpy as np
-import pandas as pd
-from glob import glob
-from preprocessing import read_data, preprocess_data
+from preprocessing import read_data, preprocess_data, encode_strains
 warnings.simplefilter('ignore')
 
 logging.basicConfig(
@@ -31,6 +28,8 @@ if __name__ == '__main__':
     test_df = read_data(os.path.join(PATH_TO_INPUT, 'test.json'))
     logger.info('Предобработка датасета')
     test_df = preprocess_data(test_df)
+    logger.info('Кодирование штаммов')
+    decoder = pickle.load(open("models/decoder.pkl", "rb"))
     logger.info(f'N примеров: {test_df.shape[0]}')
 
     X_pred = []
@@ -39,25 +38,13 @@ if __name__ == '__main__':
         X_pred.append(row)
     X_pred = np.array(X_pred)
 
-    model_names = glob(f'{PATH_TO_MODELS}/*.pkl')
-    class_order = []
-    prediction = []
-    for model_name in model_names:
-        with open(model_name, 'rb') as model_path:
-            logger.info(f'Загрзука модели: {model_name}')
-            strain = '_'.join(model_name.split('/')[-1].split('.')[0].split('_')[2:])
-            class_order.append(strain)
-            logger.info(f'Прогноз для штамма {strain}')
-            model = pickle.load(model_path)
-            prediction.append(model.predict_proba(X_pred)[:, 1])
-
-    logger.info('Объединяем предикты')
-    prediction = np.array(prediction).T
+    model = keras.models.load_model("models/nn")
+    prediction = model.predict(X_pred)
 
     class_name = []
     for p in prediction:
-        if max(p) > 0.5:
-            class_name.append(class_order[np.where(p == max(p))[0].item()])
+        if max(p) > 0.0:
+            class_name.append(decoder[p.argmax()])
         else:
             class_name.append('new')
 

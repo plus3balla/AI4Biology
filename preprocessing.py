@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import json
-
+from sklearn.preprocessing import LabelEncoder
 
 def read_data(f):
     with open(f, 'rb') as fp:
@@ -25,3 +25,12 @@ def preprocess_data(data):
     data['intens'] = data.apply(lambda d: create_spectre(d['mz'], d['Rel. Intens.']),
                                 axis=1)
     return data
+
+
+def encode_strains(data: pd.DataFrame):
+    data['strain_encoded'] = LabelEncoder().fit_transform(data['strain'])
+    temp = data[['strain_encoded', 'strain']].drop_duplicates()
+
+    decoder = temp.set_index('strain_encoded').to_dict()['strin']
+
+    return decoder
