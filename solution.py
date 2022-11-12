@@ -4,7 +4,7 @@ import pathlib
 import pickle
 import warnings
 
-import keras
+from tensorflow.python.keras.models import load_model
 import numpy as np
 from preprocessing import read_data, preprocess_data
 warnings.simplefilter('ignore')
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         X_pred.append(row)
     X_pred = np.array(X_pred)
 
-    model = keras.models.load_model("models/nn")
+    model = load_model("models/nn")
     prediction = model.predict(X_pred)
 
     class_name = []
