@@ -4,7 +4,7 @@ import pathlib
 import pickle
 import warnings
 
-from tensorflow.python.keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 from preprocessing import read_data, preprocess_data
 warnings.simplefilter('ignore')
