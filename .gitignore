@@ -128,5 +128,15 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+.idea/ai4biology.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/other.xml
+output/results.csv
+
 # Other
 catboost_info/
+models/baseline_clf.pkl
