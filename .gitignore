@@ -137,4 +137,6 @@ dmypy.json
 .idea/other.xml
 output/results.csv
 
+# Other
+catboost_info/
 models/baseline_clf.pkl
